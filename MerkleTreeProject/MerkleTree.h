@@ -8,8 +8,8 @@ typedef string elementType;
 
 struct node {
 	elementType data;
-	node* left;
-	node* right;
+	node* left = nullptr;
+	node* right= nullptr;
 
 };
 
@@ -18,11 +18,11 @@ class MerkleTree
 	list<string> transactions;
 	
 public:MerkleTree(list<string> transactions);
-public: list<string> getMerkleRoot();
+public: node* getMerkleRoot();
 
 public: node* createNode(elementType x);
 
-private: list<string> buildMerkleTree(list<string> transactions);
+private: list<node*> buildMerkleTree(list<node*> transactions);
 private: list<node*> changeListElementsToNodes(list<elementType> transactions);
 
 

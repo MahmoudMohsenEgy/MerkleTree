@@ -1,12 +1,4 @@
 ﻿  MerkleTree.cpp
 C:\Users\Mahmoud\source\repos\MerkleTreeProject\MerkleTreeProject\MerkleTree.h(2,9): warning C4067: unexpected tokens following preprocessor directive - expected a newline
 C:\Users\Mahmoud\source\repos\MerkleTreeProject\MerkleTreeProject\MerkleTree.h(3,9): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-C:\Users\Mahmoud\source\repos\MerkleTreeProject\MerkleTreeProject\MerkleTree.cpp(41,9): warning C4101: 'leftTemp': unreferenced local variable
-C:\Users\Mahmoud\source\repos\MerkleTreeProject\MerkleTreeProject\MerkleTree.cpp(45,9): warning C4101: 'rightTemp': unreferenced local variable
-  Source.cpp
-C:\Users\Mahmoud\source\repos\MerkleTreeProject\MerkleTreeProject\Source.cpp(1,9): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-C:\Users\Mahmoud\source\repos\MerkleTreeProject\MerkleTreeProject\Source.cpp(2,9): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-C:\Users\Mahmoud\source\repos\MerkleTreeProject\MerkleTreeProject\MerkleTree.h(2,9): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-C:\Users\Mahmoud\source\repos\MerkleTreeProject\MerkleTreeProject\MerkleTree.h(3,9): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-  Generating Code...
   MerkleTreeProject.vcxproj -> C:\Users\Mahmoud\source\repos\MerkleTreeProject\Debug\MerkleTreeProject.exe

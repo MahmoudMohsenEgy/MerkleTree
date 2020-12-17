@@ -1,10 +1,12 @@
 #include "MerkleTree.h"
-
+int lvl = 2;
+// lvl for debuging will be deleted later
 MerkleTree::MerkleTree(list<string> transactions) {
 	this->transactions = transactions;
 }
-list<string> MerkleTree::getMerkleRoot() {
-	return this->buildMerkleTree(this->transactions);
+node* MerkleTree::getMerkleRoot() {
+	list<node*> mydata = changeListElementsToNodes(this->transactions);
+	 return buildMerkleTree(mydata).front();
 }
 node* MerkleTree::createNode(elementType x) {
 	node* p = new node;
@@ -28,27 +30,43 @@ list<node*> MerkleTree::changeListElementsToNodes(list<elementType> transactions
 
 	return nodes;
 }
-list<string> MerkleTree::buildMerkleTree(list<string> transactions) {
-	if (transactions.size() == 1) { return transactions; } //Base condition 
-	list<string> updateList; // Creating a new list 
+list<node*> MerkleTree::buildMerkleTree(list<node*> transactions) {
+	if (transactions.size() == 1) { return transactions; } //Base condition return list with only one element MERKLE ROOT.
+	if (transactions.size() % 2 != 0) { transactions.push_back(transactions.back()); } //if nodes are odd then add last element again.
+	list<node*> updateList; // Creating a new list 
+
 	
 	
+	int i = 1;
 	while(!transactions.empty())
 	{
+		
 		// string a will be equal merged hash of two adjancent elements  -->[a = hash(a) + hash(b)]
-		elementType a = transactions.front(); 
+		
+		elementType a = transactions.front()->data; 
 		//storing address of left node in pointer
-		node* leftTemp;
+		node* leftTemp = transactions.front();
 		transactions.pop_front();
-		a.append(transactions.front());
+		a.append(transactions.front()->data);
 		//storing address of right node in pointer
-		node* rightTemp;
+		node* rightTemp = transactions.front();
+
 		transactions.pop_front();
 		//create node with data value equal a and pointing to leftTemp and rightTemp
+		node* tempNode = createNode(a);
+		tempNode->left = leftTemp;
+		tempNode->right = rightTemp;
 
 		
-		updateList.push_back(a);
+		//debug will be deleting later.........
+		cout << "the node number " << i << " equal " << tempNode->data << " left node = " << tempNode->left->data << endl;
+		i++;
+		/// update list recursivly.
+		updateList.push_back(tempNode);
 	}
+	// i was debuging this code will be deleted later.....
+	cout << "^^^^^^^^^" << "level = " << lvl << "^^^^^^^^^" << endl;
+	lvl++;
 	return buildMerkleTree(updateList);
 }
 
