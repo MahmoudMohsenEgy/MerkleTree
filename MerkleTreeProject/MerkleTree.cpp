@@ -1,4 +1,5 @@
 #include "MerkleTree.h"
+#include"SHA.h"
 int lvl = 2;
 // lvl for debuging will be deleted later
 MerkleTree::MerkleTree(list<string> transactions) {
@@ -6,7 +7,8 @@ MerkleTree::MerkleTree(list<string> transactions) {
 }
 node* MerkleTree::getMerkleRoot() {
 	list<node*> mydata = changeListElementsToNodes(this->transactions);
-	 return buildMerkleTree(mydata).front();
+	root = buildMerkleTree(mydata).front();
+	 return root;
 }
 node* MerkleTree::createNode(elementType x) {
 	node* p = new node;
@@ -21,8 +23,9 @@ list<node*> MerkleTree::changeListElementsToNodes(list<elementType> transactions
 	list<node*> nodes;
 	while (!transactions.empty()) {
 		// from  data queue -------> nodes queue
+
 		// HASHING IS MISSING HERE to hash it bl maraa
-		nodes.push_back(createNode(transactions.front()));
+		nodes.push_back(createNode(hash_(transactions.front())));
 		transactions.pop_front();
 	}
 
@@ -53,13 +56,16 @@ list<node*> MerkleTree::buildMerkleTree(list<node*> transactions) {
 
 		transactions.pop_front();
 		//create node with data value equal a and pointing to leftTemp and rightTemp
+		//string mergedHash = hash_(a);
 		node* tempNode = createNode(a);
 		tempNode->left = leftTemp;
 		tempNode->right = rightTemp;
 
 		
 		//debug will be deleting later.........
-		cout << "the node number " << i << " equal " << tempNode->data << " left node = " << tempNode->left->data << endl;
+		cout << "the node number " << i << " equal "<<endl
+			<< tempNode->data <<endl<< " left node = "
+			<< tempNode->left->data << endl;
 		i++;
 		/// update list recursivly.
 		updateList.push_back(tempNode);
@@ -68,6 +74,10 @@ list<node*> MerkleTree::buildMerkleTree(list<node*> transactions) {
 	cout << "^^^^^^^^^" << "level = " << lvl << "^^^^^^^^^" << endl;
 	lvl++;
 	return buildMerkleTree(updateList);
+}
+void MerkleTree::display() {
+
+
 }
 
 
