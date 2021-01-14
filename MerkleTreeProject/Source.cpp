@@ -1,5 +1,5 @@
-#include<iostream>;
-#include<stdlib.h>;
+#include<iostream>
+#include<stdlib.h>
 #include<string>
 #include<list>
 #include "MerkleTree.h"

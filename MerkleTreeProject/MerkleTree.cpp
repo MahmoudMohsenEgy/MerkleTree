@@ -25,7 +25,7 @@ elementType MerkleTree::getMerkleRoot() {
 //root = buildMerkleTree(mydata).getFront();
 	 return root->data;
 }
-Queue<node*>& MerkleTree::changeListElementsToNodes(Queue<elementType> transactions) {
+Queue<node*> MerkleTree::changeListElementsToNodes(Queue<elementType> transactions) {
 	Queue<node*> nodes;
 	while (!transactions.isEmpty()) {
 		// from  data queue -------> nodes queue
@@ -37,7 +37,6 @@ Queue<node*>& MerkleTree::changeListElementsToNodes(Queue<elementType> transacti
 	}
 
 
-	nodes.display();
 	return nodes;
 }
 Queue<node*> MerkleTree::buildMerkleTree(Queue<node*> transactions) {
