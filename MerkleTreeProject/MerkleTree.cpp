@@ -1,7 +1,14 @@
 #include "MerkleTree.h"
 #include"SHA.h"
+#include"Queue.h"
 int lvl = 2;
 // lvl for debuging will be deleted later
+node::node(elementType x ) {
+	data = x;
+	left = nullptr;
+	right = nullptr;
+
+}
 MerkleTree::MerkleTree(list<string> transactions) {
 	this->transactions = transactions;
 }
@@ -10,22 +17,22 @@ node* MerkleTree::getMerkleRoot() {
 	root = buildMerkleTree(mydata).front();
 	 return root;
 }
-node* MerkleTree::createNode(elementType x) {
-	node* p = new node;
-	if (p == 0) { return 0; }// Memory is FULL error (NO SPACE in HEAP)
-	p->data = x;
-	p->left = nullptr;
-	p->right = nullptr;
-	
-	return p;
-}
+//node* MerkleTree::createNode(elementType x) {
+//	node* p = new node;
+//	if (p == 0) { return 0; }// Memory is FULL error (NO SPACE in HEAP)
+//	p->data = x;
+//	p->left = nullptr;
+//	p->right = nullptr;
+//	
+//	return p;
+//}
 list<node*> MerkleTree::changeListElementsToNodes(list<elementType> transactions) {
 	list<node*> nodes;
 	while (!transactions.empty()) {
 		// from  data queue -------> nodes queue
 
 		// HASHING IS MISSING HERE to hash it bl maraa
-		nodes.push_back(createNode(hash_(transactions.front())));
+		nodes.push_back(new node(hash_(transactions.front())));
 		transactions.pop_front();
 	}
 
@@ -57,7 +64,7 @@ list<node*> MerkleTree::buildMerkleTree(list<node*> transactions) {
 		transactions.pop_front();
 		//create node with data value equal a and pointing to leftTemp and rightTemp
 		//string mergedHash = hash_(a);
-		node* tempNode = createNode(a);
+		node* tempNode = new node(a);
 		tempNode->left = leftTemp;
 		tempNode->right = rightTemp;
 

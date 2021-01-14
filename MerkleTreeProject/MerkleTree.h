@@ -4,6 +4,7 @@
 #include<string>
 #include<list>
 
+
 using namespace std;
 typedef string elementType;
 
@@ -11,6 +12,7 @@ struct node {
 	elementType data;
 	node* left = nullptr;
 	node* right= nullptr;
+	node(elementType x);
 
 };
 
