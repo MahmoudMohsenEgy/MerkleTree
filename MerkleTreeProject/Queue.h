@@ -34,6 +34,9 @@ public:
 	//get last element
 	queueELement getBack() const;
 
+	//Assignmnet Overloading the "=" sign
+	void operator=(const Queue<queueELement> original);
+
 };
 
 
@@ -110,7 +113,7 @@ Queue<queueElement>::~Queue() {
 	while (ptr != NULL) {
 
 		current = ptr->next;
-		delete(ptr);
+		delete ptr;
 		ptr = current;
 	}
 }
@@ -141,3 +144,16 @@ queueElement Queue<queueElement>::getBack() const {
 		return garbage;
 	}
 }
+
+//template<typename queueElement>
+//void Queue<queueElement>::operator=(const Queue<queueELement> original)
+//{
+//	Node* tmp = original.front;
+//	
+//	while (tmp->next != NULL) {
+//		front->item = tmp->item;
+//		front->next = new Node;
+//		front = front->next;
+//		tmp = tmp->next;
+////	}
+////}

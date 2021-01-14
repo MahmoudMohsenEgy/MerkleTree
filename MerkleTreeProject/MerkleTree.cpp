@@ -1,6 +1,7 @@
 #include "MerkleTree.h"
 #include"SHA.h"
 #include"Queue.h"
+#include<fstream>
 int lvl = 2;
 // lvl for debuging will be deleted later
 node::node(elementType x ) {
@@ -9,59 +10,59 @@ node::node(elementType x ) {
 	right = nullptr;
 
 }
-MerkleTree::MerkleTree(list<string> transactions) {
-	this->transactions = transactions;
+MerkleTree::MerkleTree(const char* filePath) {
+	
+	readFromFile(filePath);
+	
+	root = buildMerkleTree(changeListElementsToNodes(transactions)).getFront();
+
+	
+
+	
 }
-node* MerkleTree::getMerkleRoot() {
-	list<node*> mydata = changeListElementsToNodes(this->transactions);
-	root = buildMerkleTree(mydata).front();
-	 return root;
+elementType MerkleTree::getMerkleRoot() {
+//Queue<node*> mydata = changeListElementsToNodes(transactions);
+//root = buildMerkleTree(mydata).getFront();
+	 return root->data;
 }
-//node* MerkleTree::createNode(elementType x) {
-//	node* p = new node;
-//	if (p == 0) { return 0; }// Memory is FULL error (NO SPACE in HEAP)
-//	p->data = x;
-//	p->left = nullptr;
-//	p->right = nullptr;
-//	
-//	return p;
-//}
-list<node*> MerkleTree::changeListElementsToNodes(list<elementType> transactions) {
-	list<node*> nodes;
-	while (!transactions.empty()) {
+Queue<node*>& MerkleTree::changeListElementsToNodes(Queue<elementType> transactions) {
+	Queue<node*> nodes;
+	while (!transactions.isEmpty()) {
 		// from  data queue -------> nodes queue
 
 		// HASHING IS MISSING HERE to hash it bl maraa
-		nodes.push_back(new node(hash_(transactions.front())));
-		transactions.pop_front();
+		
+		nodes.enqueue(new node((transactions.getFront())));
+		transactions.dequeue();
 	}
 
 
-
+	nodes.display();
 	return nodes;
 }
-list<node*> MerkleTree::buildMerkleTree(list<node*> transactions) {
-	if (transactions.size() == 1) { return transactions; } //Base condition return list with only one element MERKLE ROOT.
-	if (transactions.size() % 2 != 0) { transactions.push_back(transactions.back()); } //if nodes are odd then add last element again.
-	list<node*> updateList; // Creating a new list 
+Queue<node*> MerkleTree::buildMerkleTree(Queue<node*> transactions) {
+	
+	if (transactions.getSize() == 1) { return transactions; } //Base condition return list with only one element MERKLE ROOT.
+	if (transactions.getSize() % 2 != 0) { transactions.enqueue(transactions.getBack()); } //if nodes are odd then add last element again.
+	Queue<node*> updateList; // Creating a new list 
 
 	
 	
 	int i = 1;
-	while(!transactions.empty())
+	while(!transactions.isEmpty())
 	{
 		
 		// string a will be equal merged hash of two adjancent elements  -->[a = hash(a) + hash(b)]
 		
-		elementType a = transactions.front()->data; 
+		elementType a = transactions.getFront()->data; 
 		//storing address of left node in pointer
-		node* leftTemp = transactions.front();
-		transactions.pop_front();
-		a.append(transactions.front()->data);
+		node* leftTemp = transactions.getFront();
+		transactions.dequeue();
+		a.append(transactions.getFront()->data);
 		//storing address of right node in pointer
-		node* rightTemp = transactions.front();
+		node* rightTemp = transactions.getFront();
 
-		transactions.pop_front();
+		transactions.dequeue();
 		//create node with data value equal a and pointing to leftTemp and rightTemp
 		//string mergedHash = hash_(a);
 		node* tempNode = new node(a);
@@ -75,12 +76,27 @@ list<node*> MerkleTree::buildMerkleTree(list<node*> transactions) {
 			<< tempNode->left->data << endl;
 		i++;
 		/// update list recursivly.
-		updateList.push_back(tempNode);
+		updateList.enqueue(tempNode);
 	}
 	// i was debuging this code will be deleted later.....
 	cout << "^^^^^^^^^" << "level = " << lvl << "^^^^^^^^^" << endl;
 	lvl++;
 	return buildMerkleTree(updateList);
+}
+void MerkleTree::readFromFile(const char* filename) {
+
+	std::ifstream infile(filename);
+	if (!infile) {
+		std::cerr << "Cannot open input file.\n";
+		return;
+	}
+	std::string temp;
+	while (std::getline(infile, temp)) {
+
+		transactions.enqueue(temp);
+	}
+
+	return;
 }
 void MerkleTree::display() {
 
