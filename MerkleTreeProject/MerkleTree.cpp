@@ -2,6 +2,7 @@
 #include"SHA.h"
 #include"Queue.h"
 #include<fstream>
+#include<iomanip>
 int lvl = 2;
 // lvl for debuging will be deleted later
 node::node(elementType x) {
@@ -21,6 +22,9 @@ MerkleTree::MerkleTree(const char* filePath) {
 
 
 
+}
+node* MerkleTree::getRootNode() {
+	return root;
 }
 elementType MerkleTree::getMerkleRoot() {
 	//Queue<node*> mydata = changeListElementsToNodes(transactions);
@@ -173,10 +177,26 @@ void MerkleTree::readFromFile(const char* filename) {
 
 	return;
 }
-void MerkleTree::display() {
+void MerkleTree::display(node* p, int indent)
+{
+	if (p != NULL) {
+		if (p->right) {
+			display(p->right, indent + 4);
+		}
+		if (indent) {
+			std::cout << std::setw(indent) << ' ';
+		}
+		if (p->right) std::cout << " /\n" << std::setw(indent) << ' ';
+		std::cout << p->data << "\n ";
+		if (p->left) {
+			std::cout << std::setw(indent) << ' ' << " \\\n";
+			display(p->left, indent + 4);
+		}
+	}
+} 
 
 
-}
+
 void MerkleTree::DestroyRecursive(node* node) {
 	if (node)
 	{

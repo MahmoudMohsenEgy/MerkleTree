@@ -28,6 +28,7 @@ class MerkleTree
 
 public:MerkleTree( const char* filepath);
 public:~MerkleTree();
+public: node* getRootNode();
 
 
 
@@ -46,7 +47,7 @@ private: Queue<node*> changeListElementsToNodes(Queue<elementType>transactions);
 private:void readFromFile(const char* fileName);
 
 
-public: void display();
+public: void display(node*p , int indent=0);
 public:bool merkleProof(int pos, elementType merkleRoot);
 private:void getSiblings(node* checkingNode, Queue<node*>* siblingsNodes);
 private:Queue<node*> buildProof(node* nodeFromPath,Queue<node*>* siblingNodes);
