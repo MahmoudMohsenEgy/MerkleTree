@@ -10,20 +10,19 @@ using namespace std;
 
 int main() {
 
-	/*Queue<string> *myTransactions = new Queue<string>();
-	myTransactions->enqueue("as");
-	myTransactions->enqueue("23");
-	myTransactions->enqueue("54");
-	myTransactions->enqueue("bl");*/
 	const char* myfile = "sample.txt";
 	MerkleTree* merkleTree = new MerkleTree(myfile);
 	cout << merkleTree->getMerkleRoot() << endl;
+	cout << endl << endl << endl;
+	cout << "PROOOOOF =======" << merkleTree->merkleProof(3,"d8c131f9a5fdb77781dc1538cbb12ebd5ff67f5ebad2f4ef1b8a9cdcf3cfc91") << endl;
+	system("pause");
+	merkleTree->append("e");
+	cout << merkleTree->getMerkleRoot() << endl;
+	cout << endl << endl << endl;
+	cout << "PROOOOOF =======" << merkleTree->merkleProof(3, "d8c131f9a5fdb77781dc1538cbb12ebd5ff67f5ebad2f4ef1b8a9cdcf3cfc91") << endl;
 
-	/*cout << "THE MERKLE ROOT IS : " << endl;
-	cout<<merkleTree.getMerkleRoot()->data;
-	cout << endl;*/
+	
 
-
-	//displayHash("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+	
 	return 0;
 }

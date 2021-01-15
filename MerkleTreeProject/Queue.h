@@ -27,15 +27,28 @@ public:
 	void dequeue();
 	// constructor
 	Queue();
+	Queue(const Queue<queueELement>& q) {
+
+		front = back = NULL;
+		if (!q.isEmpty()) {
+
+			front = back = new QueueNode(q.getFront());
+			QueueNode* qPtr = q.front->next;
+			while (qPtr != NULL) {
+				back->next = new QueueNode(qPtr->data);
+				back = back->next;
+				qPtr = qPtr->next;
+			}
+
+		}
+
+	}
 	//destructor
 	~Queue();
 	//get size of queue;
 	int getSize() const;
 	//get last element
 	queueELement getBack() const;
-
-	//Assignmnet Overloading the "=" sign
-	void operator=(const Queue<queueELement> original);
 
 };
 
@@ -107,14 +120,14 @@ Queue<queueElement>::Queue() {
 
 template<typename queueElement>
 Queue<queueElement>::~Queue() {
-	std::cout << "in distructor" << std::endl;
 	QueueNode* ptr = front;
-	QueueNode* current;
+	QueueNode* current = nullptr;
 	while (ptr != NULL) {
-
-		current = ptr->next;
-		delete ptr;
-		ptr = current;
+		
+			current = ptr->next;
+			delete ptr;
+			ptr = current;
+		
 	}
 }
 
@@ -145,15 +158,3 @@ queueElement Queue<queueElement>::getBack() const {
 	}
 }
 
-//template<typename queueElement>
-//void Queue<queueElement>::operator=(const Queue<queueELement> original)
-//{
-//	Node* tmp = original.front;
-//	
-//	while (tmp->next != NULL) {
-//		front->item = tmp->item;
-//		front->next = new Node;
-//		front = front->next;
-//		tmp = tmp->next;
-////	}
-////}
